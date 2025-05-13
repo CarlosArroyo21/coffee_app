@@ -1,7 +1,10 @@
+import 'package:coffee_app/utils/colors.dart';
+import 'package:coffee_app/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -9,12 +12,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      routes: kRoutes,
+      theme: ThemeData.from(
+          colorScheme: const ColorScheme.light(surface: kBackgroundColor)),
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/login',
     );
   }
 }
