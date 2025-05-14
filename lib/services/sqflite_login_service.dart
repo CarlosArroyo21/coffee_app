@@ -17,10 +17,4 @@ class SqfLiteLoginService extends LoginService {
     return userData;
   
   }
-
-  @override
-  Future<bool> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
-  }
 }
