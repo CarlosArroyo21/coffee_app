@@ -1,0 +1,2 @@
+C:/Users/carlo/Desktop/Flutter projects/coffee_app/android/app/.cxx/RelWithDebInfo/2v6w5n3b/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/carlo/Desktop/Flutter projects/coffee_app/android/app/.cxx/RelWithDebInfo/2v6w5n3b/armeabi-v7a/CMakeFiles/rebuild_cache.dir
