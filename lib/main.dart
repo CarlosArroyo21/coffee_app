@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MainApp()));
 }
 
@@ -15,7 +16,10 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       routes: kRoutes,
       theme: ThemeData.from(
-          colorScheme: const ColorScheme.light(surface: kBackgroundColor)),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: kButtonColor,
+            dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
+            surface: kBackgroundColor)),
       debugShowCheckedModeBanner: false,
       initialRoute: '/login',
     );
