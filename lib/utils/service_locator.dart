@@ -1,4 +1,6 @@
+import 'package:coffee_app/services/coffee_service.dart';
 import 'package:coffee_app/services/login_service.dart';
+import 'package:coffee_app/services/sqflite_coffee_service.dart';
 import 'package:coffee_app/services/sqflite_login_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
@@ -21,6 +23,13 @@ Future<Database> sqfliteDatabase(Ref ref) async {
           id INTEGER PRIMARY KEY, 
           username TEXT NOT NULL, 
           password TEXT NOT NULL);''');
+    
+    await db.execute('''CREATE TABLE coffees(
+          id INTEGER PRIMARY KEY, 
+          name TEXT NOT NULL, 
+          size TEXT NOT NULL,
+          price REAL NOT NULL,
+          quantity INTEGER NOT NULL);''');
 
     await db.insert('users', {'username': 'oscar', 'password': 'oscar123'});
   });
@@ -32,4 +41,11 @@ Future<LoginService> loginService(Ref ref) async {
   final sqliteDb = await ref.watch(sqfliteDatabaseProvider.future);
 
   return SqfLiteLoginService(db: sqliteDb);
+}
+
+@riverpod
+Future<CoffeeService> coffeeService(Ref ref) async {
+  final sqliteDb = await ref.watch(sqfliteDatabaseProvider.future);
+  
+  return SqfLiteCoffeeService(db: sqliteDb);
 }
