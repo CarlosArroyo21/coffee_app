@@ -24,12 +24,14 @@ class _RegisterCoffeeViewState extends ConsumerState<RegisterCoffeeView> {
 
   @override
   Widget build(BuildContext context) {
+    final coffeeViewModel = ref.watch(coffeeViewModelProvider);
+
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            spacing: 30,
+            spacing: 20,
             children: [
               //Coffee logo
               SvgPicture.asset(
@@ -203,9 +205,22 @@ class _RegisterCoffeeViewState extends ConsumerState<RegisterCoffeeView> {
                   ),
                 ],
               ),
+              coffeeViewModel.maybeWhen(
+                  orElse: () => const SizedBox.shrink(),
+                  error: (error, stack) {
+                    final errorMessage = (error as Exception).toString();
+                    final message = errorMessage.split(':').last.trim();
+                    return Text(
+                      message.toString(),
+                      style: TextStyle(
+                          color: Colors.red[700],
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }),
               //Register Button
               CustomIconButton(
-                height: 50,
+                  height: 50,
                   onPressed: () async {
                     final totalPrice = coffeeSize.price * amountSelected;
 
@@ -223,8 +238,13 @@ class _RegisterCoffeeViewState extends ConsumerState<RegisterCoffeeView> {
                       Navigator.pop(context);
                     }
                   },
-                  icon: const Icon(Icons.add, size: 30,),
+                  icon: const Icon(
+                    Icons.add,
+                    size: 30,
+                  ),
                   label: const Text("Register coffee order")),
+
+              
             ],
           ),
         ),

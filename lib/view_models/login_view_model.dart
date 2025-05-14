@@ -11,7 +11,20 @@ class LoginViewModel extends _$LoginViewModel {
     return const AsyncData(null);
   }
 
+  void _validateData(String username, String password) {
+    if (username.isEmpty) {
+      throw Exception('Username is required.');
+    }
+
+    if (password.isEmpty) {
+      throw Exception('Password is required.');
+    }
+  }
+
   Future<bool> login(String username, String password) async {
+
+    _validateData(username, password);
+
     state = const AsyncLoading();
 
     //Wait for login service database

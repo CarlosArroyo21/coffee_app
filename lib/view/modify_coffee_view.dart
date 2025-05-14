@@ -41,13 +41,16 @@ class _ModifyCoffeeViewState extends ConsumerState<ModifyCoffeeView> {
   }
 
   @override
+
   Widget build(BuildContext context) {
+    final coffeeViewModel = ref.watch(coffeeViewModelProvider);
+
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            spacing: 30,
+            spacing: 20,
             children: [
               //Coffee logo
               SvgPicture.asset(
@@ -64,7 +67,7 @@ class _ModifyCoffeeViewState extends ConsumerState<ModifyCoffeeView> {
               ),
               //Form
               Column(
-                spacing: 30,
+                spacing: 20,
                 children: [
                   //Coffee's name or type
                   CustomTextField(
@@ -221,6 +224,19 @@ class _ModifyCoffeeViewState extends ConsumerState<ModifyCoffeeView> {
                   ),
                 ],
               ),
+              coffeeViewModel.maybeWhen(
+                  orElse: () => const SizedBox.shrink(),
+                  error: (error, stack) {
+                    final errorMessage = (error as Exception).toString();
+                    final message = errorMessage.split(':').last.trim();
+                    return Text(
+                      message.toString(),
+                      style: TextStyle(
+                          color: Colors.red[700],
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }),
               //Buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
